@@ -3,7 +3,43 @@
 @tailwind utilities;
 
 @layer base {
+  @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;900&display=swap");
+  h1 {
+    @apply text-3xl font-black;
+  }
   body {
-    @apply bg-sky-300;
+    @apply bg-zinc-50 py-10 font-body font-light text-zinc-800;
+  }
+  /* TODO: That may not be a good way? */
+  form:focus-within button {
+    @apply text-zinc-600;
+  }
+}
+
+@layer components {
+  .box {
+    @apply relative mb-2 flex flex-row items-start justify-between border-b border-zinc-100 last:mb-0 last:border-b-0;
+  }
+  .box label {
+    @apply block pb-2 pt-[10px] pl-7 pr-2 text-sm;
+  }
+  .box label::before,
+  .box label::after {
+    @apply absolute left-0 top-[10px] block rounded-full  content-[""];
+  }
+  .box label::before {
+    @apply h-5 w-5 border border-zinc-200;
+  }
+  .box label::after {
+    @apply mt-1 ml-1 hidden h-3 w-3 bg-green-600;
+  }
+  .box input[type="checkbox"]:checked + label::after {
+    @apply block;
+  }
+  .box input[type="checkbox"]:checked + label::before {
+    @apply border-green-600;
+  }
+  .box input[type="checkbox"]:checked + label {
+    @apply line-through;
   }
 }
