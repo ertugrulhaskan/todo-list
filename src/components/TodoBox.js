@@ -1,11 +1,11 @@
 import { MdDelete } from "react-icons/md";
 
-const TodoBox = () => {
+const TodoBox = ({ todo }) => {
   return (
     <div className="box">
       <div className="mr-3 grow">
-        <input className="hidden" type="checkbox" name="reactJS" id="reactJS" />
-        <label htmlFor="reactJS">Learn ReactJS</label>
+        <input className="hidden" type="checkbox" name="reactJS" id={todo.id} />
+        <label htmlFor={todo.id}>{todo.todo}</label>
       </div>
       <div className="mt-2">
         <button className="text-zinc-200 hover:text-rose-600">
