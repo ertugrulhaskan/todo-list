@@ -12,17 +12,38 @@ function App() {
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState([]);
 
+  const validation = () => {
+    return todo.length === 0 ? false : true;
+  };
+
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    setTodos((prevStateTodos) => {
-      return [{ id: uuidv4(), todo, isCompleted: false }, ...prevStateTodos];
-    });
+    if (validation()) {
+      setTodos((prevStateTodos) => {
+        return [{ id: uuidv4(), todo, isCompleted: false }, ...prevStateTodos];
+      });
+      setTodo(""); // Cleaning Input
+      console.log("render");
+    }
+  };
 
-    setTodo(""); // Cleaning Input
+  const isCompleted = (todoID) => {
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === todoID) {
+        return {
+          ...todo,
+          isCompleted: !todo.isCompleted,
+        };
+      }
+      return todo;
+    });
+    setTodos(updatedTodos);
   };
 
   return (
-    <TodoContext.Provider value={{ todo, setTodo, handleFormSubmit, todos }}>
+    <TodoContext.Provider
+      value={{ todo, setTodo, handleFormSubmit, todos, isCompleted }}
+    >
       <div className="container mx-auto max-w-lg px-4">
         <Header />
         {todos && (

@@ -1,10 +1,21 @@
 import { MdDelete } from "react-icons/md";
 
+import { useContext } from "react";
+import { TodoContext } from "../App";
+
 const TodoBox = ({ todo }) => {
+  const { isCompleted } = useContext(TodoContext);
+
   return (
     <div className="box">
       <div className="mr-3 grow">
-        <input className="hidden" type="checkbox" name="reactJS" id={todo.id} />
+        <input
+          className="hidden"
+          type="checkbox"
+          name="reactJS"
+          id={todo.id}
+          onClick={() => isCompleted(todo.id)}
+        />
         <label htmlFor={todo.id}>{todo.todo}</label>
       </div>
       <div className="mt-2">

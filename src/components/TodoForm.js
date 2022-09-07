@@ -16,6 +16,7 @@ const TodoForm = () => {
         placeholder="What have to done?"
         value={todo}
         onChange={(e) => setTodo(e.target.value)}
+        maxLength="140"
       />
       <button
         className="absolute right-[2px] top-[2px] text-3xl text-zinc-200 hover:text-sky-500 focus:text-sky-500"
