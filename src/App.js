@@ -10,7 +10,14 @@ export const TodoContext = createContext(null);
 
 function App() {
   const [todo, setTodo] = useState("");
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(() => {
+    return JSON.parse(localStorage.getItem("todos")) || [];
+  });
+
+  // onUpdated
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   const validation = () => {
     return todo.length === 0 ? false : true;
@@ -25,6 +32,11 @@ function App() {
       setTodo(""); // Cleaning Input
       console.log("render");
     }
+  };
+
+  const handleDeleteItem = (todoID) => {
+    const newTodosList = todos.filter((todo) => todo.id !== todoID);
+    setTodos(newTodosList);
   };
 
   const isCompleted = (todoID) => {
@@ -42,7 +54,14 @@ function App() {
 
   return (
     <TodoContext.Provider
-      value={{ todo, setTodo, handleFormSubmit, todos, isCompleted }}
+      value={{
+        todo,
+        setTodo,
+        handleFormSubmit,
+        todos,
+        isCompleted,
+        handleDeleteItem,
+      }}
     >
       <div className="container mx-auto max-w-lg px-4">
         <Header />
